@@ -36,8 +36,9 @@ class quadruped:
 
     def update(self):
         # Rotation update
-        self.rotation_sensor.update()
-        self.current_rotation = self.rotation_sensor.get_angle()
+        if not self.rotation_sensor == None:
+            self.rotation_sensor.update()
+            self.current_rotation = self.rotation_sensor.get_angle()
 
         # This is where functionality is added
         self._on_update()
@@ -45,7 +46,8 @@ class quadruped:
         # Update desired servos
         self.quad_controller.update_servo_rotations()
         # Update physical servos
-        self.servo_controller.set_all_servos(self.quad_controller.servo_rotations)
+        if not self.servo_controller == None:
+            self.servo_controller.set_all_servos(self.quad_controller.servo_rotations)
 
     # Override this and use quad_controller.set_servo to set a servo. The servos do not update instantly, but after when this function returns
     def _on_update(self):
