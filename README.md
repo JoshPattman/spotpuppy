@@ -1,2 +1,2 @@
-# spotpuppy
- The 4th (and hopefully final) iteration of spot puppy code, simplified
+# Spot Puppy Python Library
+This is the code used to run a robot dog called spot puppy
