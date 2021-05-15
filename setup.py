@@ -4,7 +4,7 @@ def readme():
     with open("README.md", r) as f:
         return f.read()
 
-VERSION = "0.0.1"
+VERSION = "0.0.2"
 
 setup(name='spotpuppy',
       version=VERSION,
