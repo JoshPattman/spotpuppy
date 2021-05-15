@@ -1,9 +1,15 @@
-from mpu6050 import mpu6050
 from math import atan, sqrt, pow, radians, degrees
 from . import rotation_sensor_base
 
+IS_IMPORTED=False
+
 class sensor(rotation_sensor_base.sensor):
     def __init__(self, inverse_x=False, inverse_z=False, accelerometer_bias=0.05):
+        global IS_IMPORTED
+        if not IS_IMPORTED:
+            global mpu6050
+            from mpu6050 import mpu6050
+            IS_IMPORTED = True
         rotation_sensor_base.sensor.__init__(self, inverse_x=inverse_x, inverse_z=inverse_z)
         self.accelerometer_bias=accelerometer_bias
         self.mpu = mpu6050(0x68)

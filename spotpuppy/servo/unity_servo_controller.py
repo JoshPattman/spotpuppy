@@ -1,10 +1,16 @@
 from . import servo_controller_base
-import zmq
 import os
 import atexit
 
+IS_IMPORTED = False
+
 class controller(servo_controller_base.controller):
     def __init__(self, linked_sensor):
+        global IS_IMPORTED
+        if not IS_IMPORTED:
+            global zmq
+            import zmq
+            IS_IMPORTED = True
         servo_controller_base.controller.__init__(self)
         self.linked_sensor = linked_sensor
         self.servos = []

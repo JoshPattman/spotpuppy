@@ -1,8 +1,14 @@
 from . import servo_controller_base
-from . import redboard_modified_lib as redboard
+
+IS_IMPORTED=False
 
 class controller(servo_controller_base.controller):
     def __init__(self):
+        global IS_IMPORTED
+        if not IS_IMPORTED:
+            global redboard
+            from . import redboard_modified_lib as redboard
+            IS_IMPORTED = True
         servo_controller_base.controller.__init__(self)
 
         def set_servo(self, leg, joint, value):
