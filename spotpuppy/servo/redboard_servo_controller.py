@@ -1,4 +1,5 @@
 from . import servo_controller_base
+from . import redboard_modified_lib as redboard
 
 class controller(servo_controller_base.controller):
     def __init__(self):

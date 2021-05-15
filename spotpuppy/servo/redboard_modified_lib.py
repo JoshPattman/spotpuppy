@@ -4,7 +4,7 @@
 # Author: Neil Lambeth. neil@redrobotics.co.uk @NeilRedRobotics
 # Modified by Josh Pattman to make it easier to set servos (for Spot Puppy)
 
-from __future__ import print_function  # Make print work with python 2 & 3
+
 #print('Please wait while modules load...')
 import time
 import pigpio
