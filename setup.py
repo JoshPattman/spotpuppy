@@ -4,8 +4,10 @@ def readme():
     with open("README.md", r) as f:
         return f.read()
 
+VERSION = "0.0.1"
+
 setup(name='spotpuppy',
-      version='0.0.1',
+      version=VERSION,
       description='Package for controlling a dynamically balanced quadruped',
       long_description=readme(),
       author='Josh Pattman',
@@ -22,4 +24,5 @@ setup(name='spotpuppy',
       classifiers=[
         'Development Status :: 3 - Alpha',
       ],
+      download_url="https://github.com/JoshPattman/Spot-Puppy-Lib/archive/refs/tags/"+VERSION+".tar.gz",
       )
