@@ -6,7 +6,7 @@ def readme():
     with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
         return f.read()
 
-VERSION = "0.0.3"
+VERSION = "0.0.4"
 
 setup(name='spotpuppy',
       version=VERSION,
