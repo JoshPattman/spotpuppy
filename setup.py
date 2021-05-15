@@ -1,7 +1,7 @@
 from distutils.core import setup
 
 def readme():
-    with open("README.md", r) as f:
+    with open("README.md", 'r') as f:
         return f.read()
 
 VERSION = "0.0.2"
