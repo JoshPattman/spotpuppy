@@ -1,9 +1,13 @@
 from distutils.core import setup
 
+def readme():
+    with open("README.md", r) as f:
+        return f.read()
+
 setup(name='spotpuppy',
       version='0.0.1',
       description='Package for controlling a dynamically balanced quadruped',
-      long_description=['This package contains code to easily get a quadruped up and running. It also contains extendable classes to allow you to write your own balancing algorithms and gaits'],
+      long_description=readme(),
       author='Josh Pattman',
       author_email='josh.pattman@gmail.com',
       packages=['spotpuppy',
@@ -14,5 +18,8 @@ setup(name='spotpuppy',
                 'spotpuppy.utils'],
       install_requires=[
           "numpy",
+      ],
+      classifiers=[
+        'Development Status :: 3 - Alpha',
       ],
       )
