@@ -2,11 +2,12 @@ from distutils.core import setup
 from os import path
 
 def readme():
+    return "This package contains code to easily get a quadruped up and running. It also contains extendable classes to allow you to write your own balancing algorithms and gaits"
     this_directory = path.abspath(path.dirname(__file__))
     with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
         return f.read()
 
-VERSION = "0.0.4"
+VERSION = "0.0.5"
 
 setup(name='spotpuppy',
       version=VERSION,
