@@ -1,19 +1,19 @@
-from distutils.core import setup
+from setuptools import setup
 from os import path
 
-def readme():
-    return "This package contains code to easily get a quadruped up and running. It also contains extendable classes to allow you to write your own balancing algorithms and gaits"
-    this_directory = path.abspath(path.dirname(__file__))
-    with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
-        return f.read()
+GITHUBLINK = "https://github.com/JoshPattman/spotpuppy"
+VERSION = "0.0.7"
 
-VERSION = "0.0.6"
+
+this_directory = path.abspath(path.dirname(__file__))
+with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
+    LONG_DESC = f.read()
 
 setup(name='spotpuppy',
       version=VERSION,
       description='Package for controlling a dynamically balanced quadruped',
       long_description_content_type='text/markdown',
-      long_description=readme(),
+      long_description=LONG_DESC,
       author='Josh Pattman',
       author_email='josh.pattman@gmail.com',
       packages=['spotpuppy',
@@ -28,5 +28,5 @@ setup(name='spotpuppy',
       classifiers=[
         'Development Status :: 3 - Alpha',
       ],
-      download_url="https://github.com/JoshPattman/Spot-Puppy-Lib/archive/refs/tags/"+VERSION+".tar.gz",
+      download_url= GITHUBLINK + "/archive/refs/tags/"+VERSION+".tar.gz",
       )
