@@ -21,6 +21,7 @@ class quadruped_controller:
         self._recalc_resting_height()
 
     def _recalc_resting_height(self):
+        l = self.legs[0].bone_length
         self.resting_height = math.sqrt(2 * (l * l))
 
     def _calc_FL_vert_shoulder_offsets(self):
@@ -32,7 +33,7 @@ class quadruped_controller:
         half_dims = (self.body_dims/2)
         return (half_dims * cos_rots - half_dims)/2
 
-    def set_leg(l, pos):
+    def set_leg(self, l, pos):
         self.foot_positions[l] = pos
 
     def update(self):
