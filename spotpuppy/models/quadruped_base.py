@@ -52,7 +52,7 @@ class quadruped:
     # Override this and use quad_controller.set_servo to set a servo. The servos do not update instantly, but after when this function returns
     def _on_update(self):
         # Set all legs to default height
-        posses, grounded = self._calculate_still_positions()
+        posses = self._calculate_still_positions()
         for l in range(4):
             self.quad_controller.set_leg(l, posses[l])
 
@@ -79,5 +79,4 @@ class quadruped:
     def _calculate_still_positions(self):
         dh = self.ll_quadruped.defaultHeight
         posses = np.array([[0, dh, 0], [0, dh, 0], [0, dh, 0], [0, dh, 0]])
-        grounded = [False, False, False, False]
-        return posses, grounded
+        return posses
