@@ -4,6 +4,7 @@ from ..rotation import rotation_sensor_base
 import math
 from ..utils import json_serialiser as js
 from ..core import foot_positions
+import numpy as np
 
 class quadruped:
     def __init__(self, rotation_sensor=None, servo_controller=None, bone_length=6, body_dims=[10, 10], fall_rotation_limit=0):
@@ -18,7 +19,7 @@ class quadruped:
         else:
             self.rotation_sensor = rotation_sensor
         # If this is zero the it will never detect that it has fallen over
-        set_rotation_limit(fall_rotation_limit)
+        self.set_rotation_limit(fall_rotation_limit)
         self.current_rotation = np.array([0, 0])
 
 
@@ -45,7 +46,7 @@ class quadruped:
         self._on_update()
 
         # Update desired servos
-        self.quad_controller.update_servo_rotations()
+        self.quad_controller.update()
         # Update physical servos
         if not self.servo_controller == None:
             self.servo_controller.set_all_servos(self.quad_controller.servo_rotations)
@@ -78,7 +79,7 @@ class quadruped:
 
     # Calculate positions of the legs when they are at their default positions
     def _calculate_still_positions(self):
-        dh = self.ll_quadruped.defaultHeight
+        dh = self.quad_controller.resting_height
         localRestingPos = foot_positions.foot_pos(sh_pos=[0, dh, 0])
         posses = np.array([localRestingPos,localRestingPos,localRestingPos,localRestingPos])
         return posses
