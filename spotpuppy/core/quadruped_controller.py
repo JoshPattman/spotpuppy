@@ -26,6 +26,10 @@ class quadruped_controller:
     def set_leg(self, l, foot_position):
         self.foot_positions[l] = foot_position
 
+    def set_all_legs(self, foot_positions):
+        for i in range(4):
+            self.set_leg(i, foot_positions[i])
+
     def update(self):
         for l in range(4):
             self.servo_rotations[l] = self.legs[l].calculate_servos(self.foot_positions[l].sh_pos)
