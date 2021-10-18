@@ -5,7 +5,6 @@ class quadruped(quadruped_base.quadruped):
         quadruped_base.quadruped.__init__(self, rotation_sensor=rotation_sensor,servo_controller=servo_controller,bone_length=bone_length,body_dims=body_dims,fall_rotation_limit=fall_rotation_limit)
 
     def _on_update(self):
-        # Set all legs to default height, and tell the underlying quadruped to keep the legs grounded in global space
         posses = self._calculate_still_positions()
         self.quad_controller.body_rotation = self.current_rotation
         for l in range(4):
