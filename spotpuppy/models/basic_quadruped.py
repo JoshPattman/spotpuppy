@@ -6,7 +6,6 @@ class quadruped(quadruped_base.quadruped):
 
     def _on_update(self):
         posses = self._calculate_still_positions()
-        self.quad_controller.body_rotation = self.current_rotation
         for l in range(4):
             self.quad_controller.set_leg(l, posses[l])
 

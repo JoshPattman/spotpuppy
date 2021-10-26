@@ -1,4 +1,4 @@
-from . import leg_control, foot_positions
+from . import leg_control
 import math
 import numpy as np
 
@@ -11,8 +11,9 @@ class quadruped_controller:
         self.body_rotation = np.array([0, 0])
         self.servo_rotations = np.zeros(shape=(4, 3))
         # These are in leg space
-        self.foot_positions = [foot_positions.foot_pos(), foot_positions.foot_pos(), foot_positions.foot_pos(), foot_positions.foot_pos()]
+        self.foot_positions = [np.array([0,0,0]), np.array([0,0,0]), np.array([0,0,0]), np.array([0,0,0])]
         self.body_dims = body_dims
+        # TODO : add floor relative directions to this
         self.directions = {
             "body.forward": np.array([1, 0, 0]),
             "body.down": np.array([0, 1, 0]),
@@ -36,8 +37,7 @@ class quadruped_controller:
             self.set_leg(i, foot_positions[i])
 
     def update(self):
+        # TODO : Update directions here
         for l in range(4):
-            self.servo_rotations[l] = self.legs[l].calculate_servos(self.foot_positions[l].sh_pos)
-            self.servo_rotations[l][0] += self.foot_positions[l].sh_rot[0]
-            self.servo_rotations[l][1] += self.foot_positions[l].sh_rot[1]
+            self.servo_rotations[l] = self.legs[l].calculate_servos(self.foot_positions[l])
 

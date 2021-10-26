@@ -3,7 +3,6 @@ from ..servo import servo_controller_base
 from ..rotation import rotation_sensor_base
 import math
 from ..utils import json_serialiser as js
-from ..core import foot_positions
 import numpy as np
 
 class quadruped:
@@ -36,11 +35,17 @@ class quadruped:
             return True
         return False
 
+    def get_dir(self, dir_name):
+        return self.quad_controller.directions[dir_name]
+
     def update(self):
         # Rotation update
         if not self.rotation_sensor == None:
             self.rotation_sensor.update()
             self.current_rotation = self.rotation_sensor.get_angle()
+
+        # tell the underlying quad controler what rotation we are at
+        self._on_set_rotation()
 
         # This is where functionality is added
         self._on_update()
@@ -50,6 +55,10 @@ class quadruped:
         # Update physical servos
         if not self.servo_controller == None:
             self.servo_controller.set_all_servos(self.quad_controller.servo_rotations)
+
+    # Override this to change what rotation the quad controller thinks we are at
+    def _on_set_rotation(self):
+        self.quad_controller.body_rotation = self.current_rotation
 
     # Override this and use quad_controller.set_servo to set a servo. The servos do not update instantly, but after when this function returns
     def _on_update(self):
@@ -80,6 +89,6 @@ class quadruped:
     # Calculate positions of the legs when they are at their default positions
     def _calculate_still_positions(self):
         dh = self.quad_controller.resting_height
-        localRestingPos = foot_positions.foot_pos(sh_pos=[0, dh, 0])
+        localRestingPos = np.array([0, dh, 0])
         posses = np.array([localRestingPos,localRestingPos,localRestingPos,localRestingPos])
         return posses
