@@ -13,6 +13,11 @@ class quadruped_controller:
         # These are in leg space
         self.foot_positions = [foot_positions.foot_pos(), foot_positions.foot_pos(), foot_positions.foot_pos(), foot_positions.foot_pos()]
         self.body_dims = body_dims
+        self.directions = {
+            "body.forward": np.array([1, 0, 0]),
+            "body.down": np.array([0, 1, 0]),
+            "body.left": np.array([0, 0, 1])
+        }
 
     def set_bone_length(self, bone_length):
         for l in range(4):
@@ -35,3 +40,4 @@ class quadruped_controller:
             self.servo_rotations[l] = self.legs[l].calculate_servos(self.foot_positions[l].sh_pos)
             self.servo_rotations[l][0] += self.foot_positions[l].sh_rot[0]
             self.servo_rotations[l][1] += self.foot_positions[l].sh_rot[1]
+
