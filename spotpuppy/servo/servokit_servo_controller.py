@@ -1,4 +1,4 @@
-# THIS FILE IS MISSING THE IMPORT FOR SERVOKIT
+from adafruit_servokit import ServoKit
 from . import servo_controller_base
 
 class controller(servo_controller_base.controller):

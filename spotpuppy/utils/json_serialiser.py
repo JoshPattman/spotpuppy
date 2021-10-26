@@ -1,5 +1,6 @@
 import json
 import numpy as np
+import os
 
 def vec_2_to_json(vec, labels=["X", "Z"]):
     return {labels[0]:vec[0], labels[1]:vec[1]}
@@ -21,14 +22,14 @@ def save_json_dict(filename, dict):
         f.write(s)
 
 def load_json_dict(filename):
-    if not path.exists(filename):
+    if not os.path.exists(filename):
         print("Could not find "+filename+", ignoring")
         return
     with open(filename, 'r') as f:
         return json.loads(f.read())
 
 def save_robot(quad, folder_name):
-    if not path.exists(folder_name):
+    if not os.path.exists(folder_name):
         os.makedirs(folder_name)
         print("Folder did not exist, creating one...")
     robot_config = quad.get_json_dict()
@@ -41,8 +42,8 @@ def save_robot(quad, folder_name):
     save_json_dict(folder_name+"/servo_map.json", servo_map)
     save_json_dict(folder_name+"/leg_cal.json", leg_cal)
 
-def load_into_robot(path, quad):
-    if not path.exists(folder_name):
+def load_into_robot(folder_name, quad):
+    if not os.path.exists(folder_name):
         print("Specified config directory does not exist")
         return
     robot_config = load_json_dict(folder_name+"/robot_config.json")

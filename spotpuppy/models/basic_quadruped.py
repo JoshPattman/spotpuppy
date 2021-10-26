@@ -10,7 +10,3 @@ class quadruped(quadruped_base.quadruped):
         for l in range(4):
             self.quad_controller.set_leg(l, posses[l])
 
-
-if __name__ == "__main__":
-    q = quadruped()
-    q.update()
