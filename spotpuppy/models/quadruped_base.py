@@ -47,11 +47,14 @@ class quadruped:
         # tell the underlying quad controler what rotation we are at
         self._on_set_rotation()
 
+        # update the quad controller directions
+        self.quad_controller.update_directions()
+
         # This is where functionality is added
         self._on_update()
 
         # Update desired servos
-        self.quad_controller.update()
+        self.quad_controller.update_servos()
         # Update physical servos
         if not self.servo_controller == None:
             self.servo_controller.set_all_servos(self.quad_controller.servo_rotations)

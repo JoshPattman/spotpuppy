@@ -17,7 +17,8 @@ class quadruped_controller:
         self.directions = {
             "body.forward": np.array([1, 0, 0]),
             "body.down": np.array([0, 1, 0]),
-            "body.left": np.array([0, 0, 1])
+            "body.left": np.array([0, 0, 1]),
+            "global.down": np.array([0, 1, 0])
         }
 
     def set_bone_length(self, bone_length):
@@ -36,8 +37,19 @@ class quadruped_controller:
         for i in range(4):
             self.set_leg(i, foot_positions[i])
 
-    def update(self):
-        # TODO : Update directions here
+    def update_directions(self):
+        # Body angle in radians
+        a = [math.radians(self.body_rotation[0]), math.radians(self.body_rotation[1])]
+        # The below vector is at the right angle but wrong magnitude. If you know a better way than normalising it please raise and issue
+        glob_down = np.array([
+		    math.sin(a[0])*math.cos(a[1]),
+		    math.cos(a[1])*math.cos(a[0]),
+		    math.sin(a[1])*math.cos(a[0])
+        ])
+        self.directions["global.down"] = glob_down / np.linalg.norm(glob_down)
+
+
+    def update_servos(self):
         for l in range(4):
             self.servo_rotations[l] = self.legs[l].calculate_servos(self.foot_positions[l])
 
