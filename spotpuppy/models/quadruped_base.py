@@ -73,7 +73,7 @@ class quadruped:
     def get_json_dict(self):
         json_dict = {}
         json_dict["body_dims"] = js.vec_2_to_json(self.quad_controller.body_dims)
-        json_dict["bone_length"] = self.quad_controller.bone_length
+        json_dict["bone_length"] = self.quad_controller.get_bone_length()
         json_dict["fall_rotation_limit"] = self.fall_rotation_limit
         json_dict["class_parameters"] = self._get_custom_json_params()
         return json_dict

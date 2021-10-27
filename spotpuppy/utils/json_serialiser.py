@@ -42,7 +42,7 @@ def save_robot(quad, folder_name):
     save_json_dict(folder_name+"/servo_map.json", servo_map)
     save_json_dict(folder_name+"/leg_cal.json", leg_cal)
 
-def load_into_robot(folder_name, quad):
+def load_into_robot(quad, folder_name):
     if not os.path.exists(folder_name):
         print("Specified config directory does not exist")
         return

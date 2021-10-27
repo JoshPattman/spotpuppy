@@ -26,8 +26,11 @@ class quadruped_controller:
             self.legs[l].bone_length = bone_length
         self._recalc_resting_height()
 
+    def get_bone_length(self):
+        return self.legs[0].bone_length
+
     def _recalc_resting_height(self):
-        l = self.legs[0].bone_length
+        l = self.get_bone_length()
         self.resting_height = math.sqrt(2 * (l * l))
 
     def set_leg(self, l, foot_position):
