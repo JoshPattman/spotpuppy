@@ -23,18 +23,6 @@ class quadruped_controller:
             "global.left": lambda: self.body_rotation.apply(np.array([0, 0, 1]))
         }
 
-    def get_vector_to_robot_center(self, leg_index, coord_system):
-        X = self.body_dims[0] * self.directions[coord_system+".forward"]()*0.5
-        Z = self.body_dims[1] * self.directions[coord_system+".left"]()*0.5
-        if leg_index == 0:
-            return (-X) + (-Z)
-        elif leg_index == 1:
-            return (-X) + Z
-        elif leg_index == 2:
-            return X + (-Z)
-        elif leg_index == 3:
-            return X + Z
-
     def set_bone_length(self, bone_length):
         for l in range(4):
             self.legs[l].bone_length = bone_length

@@ -39,12 +39,6 @@ class quadruped:
     def get_dir(self, dir_name):
         return self.quad_controller.directions[dir_name]()
 
-    # This gets the vector to the robot center from a leg
-    # Setting coord_system to "body" will give this vector aligned to the body
-    # But setting it to "global will give it aligned to the floor"
-    def get_vector_to_robot_center(self, leg_index, coord_system):
-        return self.quad_controller.get_vector_to_robot_center(leg_index, coord_system)
-
     def update(self):
         # Rotation update
         if not self.rotation_sensor == None:
