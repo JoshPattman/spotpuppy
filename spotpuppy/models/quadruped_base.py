@@ -37,7 +37,7 @@ class quadruped:
         return False
 
     def get_dir(self, dir_name):
-        return self.quad_controller.directions[dir_name]
+        return self.quad_controller.directions[dir_name]()
 
     def update(self):
         # Rotation update
