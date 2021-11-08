@@ -6,22 +6,24 @@ from ..utils import json_serialiser as js
 import numpy as np
 from scipy.spatial.transform import Rotation as R
 
+
 class quadruped:
-    def __init__(self, rotation_sensor=None, servo_controller=None, bone_length=6, body_dims=[10, 10], fall_rotation_limit=0):
+    def __init__(self, rotation_sensor=None, servo_controller=None, bone_length=6, body_dims=[10, 10],
+                 fall_rotation_limit=0):
         self.quad_controller = quadruped_controller.quadruped_controller(bone_length, body_dims)
-        # If not specified, set the servo controller or rotation sensor to the base class so the will have no functionality but still not break the code
-        if servo_controller == None:
+        # If not specified, set the servo controller or rotation sensor to the base class so the will have no
+        # functionality but still not break the code
+        if servo_controller is None:
             self.servo_controller = servo_controller_base.controller()
         else:
             self.servo_controller = servo_controller
-        if rotation_sensor == None:
+        if rotation_sensor is None:
             self.rotation_sensor = rotation_sensor_base.sensor()
         else:
             self.rotation_sensor = rotation_sensor
         # If this is zero the it will never detect that it has fallen over
         self.set_rotation_limit(fall_rotation_limit)
-        self.current_rotation = np.array([0, 0])
-
+        self.current_rotation = R.from_euler('xz', [0, 0], degrees=True)
 
     def set_rotation_limit(self, limit):
         limit = 0 if limit < 0 else limit
@@ -32,7 +34,8 @@ class quadruped:
         if self.fall_rotation_limit == 0:
             return False
         rot = self.current_rotation
-        if math.cos(math.radians(rot[0]) < self.cos_rotation_limit or math.cos(math.radians(rot[1])) < self.cos_rotation_limit):
+        if math.cos(math.radians(rot[0]) < self.cos_rotation_limit or math.cos(
+                math.radians(rot[1])) < self.cos_rotation_limit):
             return True
         return False
 
@@ -64,6 +67,10 @@ class quadruped:
         if not self.servo_controller == None:
             self.servo_controller.set_all_servos(self.quad_controller.servo_rotations)
 
+    def get_roll_pitch(self):
+        xyz = self.current_rotation.as_euler("xyz", degrees=True)
+        return np.array([xyz[0], xyz[2]])
+
     # Override this to change what rotation the quad controller thinks we are at
     def _on_set_rotation(self):
         self.quad_controller.body_rotation = self.current_rotation
@@ -82,6 +89,7 @@ class quadruped:
         json_dict["fall_rotation_limit"] = self.fall_rotation_limit
         json_dict["class_parameters"] = self._get_custom_json_params()
         return json_dict
+
     def set_json_dict(self, json_dict):
         self.quad_controller.body_dims = js.json_to_vec_2(json_dict["body_dims"])
         self.quad_controller.set_bone_length(json_dict["bone_length"])
@@ -91,6 +99,7 @@ class quadruped:
     # Override this to add custom save information
     def _get_custom_json_params(self):
         return {}
+
     def _set_custom_json_params(self, json_dict):
         pass
 
@@ -98,5 +107,5 @@ class quadruped:
     def _calculate_still_positions(self):
         dh = self.quad_controller.resting_height
         localRestingPos = np.array([0, dh, 0])
-        posses = np.array([localRestingPos,localRestingPos,localRestingPos,localRestingPos])
+        posses = np.array([localRestingPos, localRestingPos, localRestingPos, localRestingPos])
         return posses
