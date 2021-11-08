@@ -15,7 +15,7 @@ class controller(servo_controller_base.controller):
         self.linked_sensor = linked_sensor
         self.servos = []
         self.head = 0
-        selfself.tail = 0
+        self.tail = 0
 
     def set_servo(self, leg, joint, value):
         self.servos[leg][joint] =  value
