@@ -4,6 +4,7 @@ from ..rotation import rotation_sensor_base
 import math
 from ..utils import json_serialiser as js
 import numpy as np
+from scipy.spatial.transform import Rotation as R
 
 class quadruped:
     def __init__(self, rotation_sensor=None, servo_controller=None, bone_length=6, body_dims=[10, 10], fall_rotation_limit=0):
@@ -31,7 +32,7 @@ class quadruped:
         if self.fall_rotation_limit == 0:
             return False
         rot = self.current_rotation
-        if (math.cos(math.radians(rot[0])) < self.cos_rotation_limit or math.cos(math.radians(rot[1])) < self.cos_rotation_limit):
+        if math.cos(math.radians(rot[0]) < self.cos_rotation_limit or math.cos(math.radians(rot[1])) < self.cos_rotation_limit):
             return True
         return False
 
@@ -42,9 +43,10 @@ class quadruped:
         # Rotation update
         if not self.rotation_sensor == None:
             self.rotation_sensor.update()
-            self.current_rotation = self.rotation_sensor.get_angle()
+            roll_pitch = self.rotation_sensor.get_angle()
+            self.current_rotation = R.from_euler('xz', roll_pitch, degrees=True)
 
-        # tell the underlying quad controler what rotation we are at
+        # tell the underlying quad controller what rotation we are at
         self._on_set_rotation()
 
         # update the quad controller directions
