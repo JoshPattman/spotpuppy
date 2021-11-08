@@ -14,14 +14,13 @@ class quadruped_controller:
         # These are in leg space
         self.foot_positions = [np.array([0,0,0]), np.array([0,0,0]), np.array([0,0,0]), np.array([0,0,0])]
         self.body_dims = body_dims
-        # TODO : add floor relative directions to this
         self.directions = {
-            "body.forward": np.array([1, 0, 0]),
-            "body.down": np.array([0, 1, 0]),
-            "body.left": np.array([0, 0, 1]),
-            "global.down": np.array([0, 1, 0]),
-            "global.forward": np.array([0, 1, 0]),
-            "global.left": np.array([0, 1, 0])
+            "body.forward": lambda: np.array([1, 0, 0]),
+            "body.down": lambda: np.array([0, 1, 0]),
+            "body.left": lambda: np.array([0, 0, 1]),
+            "global.down": lambda: self.body_rotation.apply(np.array([0, 1, 0])),
+            "global.forward": lambda: self.body_rotation.apply(np.array([1, 0, 0])),
+            "global.left": lambda: self.body_rotation.apply(np.array([0, 0, 1]))
         }
 
     def set_bone_length(self, bone_length):
@@ -43,13 +42,7 @@ class quadruped_controller:
         for i in range(4):
             self.set_leg(i, foot_positions[i])
 
-    def update_directions(self):
-        self.directions["global.down"] = self.body_rotation.apply(np.array([0, 1, 0]))
-        self.directions["global.forward"] = self.body_rotation.apply(np.array([1, 0, 0]))
-        self.directions["global.left"] = self.body_rotation.apply(np.array([0, 0, 1]))
-
 
     def update_servos(self):
         for l in range(4):
             self.servo_rotations[l] = self.legs[l].calculate_servos(self.foot_positions[l])
-

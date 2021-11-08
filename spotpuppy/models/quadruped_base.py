@@ -49,9 +49,6 @@ class quadruped:
         # tell the underlying quad controller what rotation we are at
         self._on_set_rotation()
 
-        # update the quad controller directions
-        self.quad_controller.update_directions()
-
         # This is where functionality is added
         self._on_update()
 
