@@ -24,6 +24,7 @@ setup(name='spotpuppy',
                 'spotpuppy.utils'],
       install_requires=[
           "numpy",
+          "scipy",
       ],
       classifiers=[
         'Development Status :: 3 - Alpha',
