@@ -1,6 +1,7 @@
-# Spot Puppy Python Library
+# Spot Puppy Python Package
 Have a look at the [github](https://github.com/JoshPattman/spotpuppy) for code \
-Or check out the [wiki](https://github.com/JoshPattman/spotpuppy/wiki) for information on usage of the library
+Or check out the [wiki](https://github.com/JoshPattman/spotpuppy/wiki) for information on usage of the library \
+Take a look at an [example of the package usage](https://github.com/JoshPattman/spotpuppy-trot)
 ## What this package is for
 This package is a framework for controlling dynamically balanced 4 legged robots. It's purpose is to abstract the low-level maths and functionality away from the user, and provide useful helper functionality to make designing a walking algorithm an easy job. The package splits up the walking algorithm implementation and usage, which means that it is simple to write multiple programs using the same algorithm, without having to copy code.
 ## This is a development package
