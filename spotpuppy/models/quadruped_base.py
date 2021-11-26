@@ -24,6 +24,7 @@ class quadruped:
         # If this is zero the it will never detect that it has fallen over
         self.set_rotation_limit(fall_rotation_limit)
         self.current_rotation = R.from_euler('xz', [0, 0], degrees=True)
+        self.cached_directions={}
 
     def set_rotation_limit(self, limit):
         limit = 0 if limit < 0 else limit
@@ -40,7 +41,11 @@ class quadruped:
         return False
 
     def get_dir(self, dir_name):
-        return self.quad_controller.directions[dir_name]()
+        if dir_name in self.cached_directions:
+            return self.cached_directions[dir_name]
+        d = self.quad_controller.directions[dir_name]()
+        self.cached_directions[dir_name] = d
+        return d
 
     # This gets the vector to the robot center from a leg
     # Setting coord_system to "body" will give this vector aligned to the body
@@ -50,6 +55,7 @@ class quadruped:
 
     def update(self):
         # Rotation update
+        self.cached_directions = {}
         if not self.rotation_sensor == None:
             self.rotation_sensor.update()
             roll_pitch = self.rotation_sensor.get_angle()
