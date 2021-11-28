@@ -2,7 +2,7 @@ from setuptools import setup
 from os import path
 
 GITHUBLINK = "https://github.com/JoshPattman/spotpuppy"
-VERSION = "0.1.7"
+VERSION = "0.1.8"
 
 
 this_directory = path.abspath(path.dirname(__file__))
