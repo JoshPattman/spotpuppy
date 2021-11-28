@@ -24,7 +24,7 @@ class quadruped:
         # If this is zero the it will never detect that it has fallen over
         self.set_rotation_limit(fall_rotation_limit)
         self.current_rotation = R.from_euler('xz', [0, 0], degrees=True)
-        self.cached_directions={}
+        self.cached_directions = {}
 
     def set_rotation_limit(self, limit):
         limit = 0 if limit < 0 else limit
@@ -56,7 +56,7 @@ class quadruped:
     def update(self):
         # Rotation update
         self.cached_directions = {}
-        if not self.rotation_sensor == None:
+        if self.rotation_sensor is not None:
             self.rotation_sensor.update()
             roll_pitch = self.rotation_sensor.get_angle()
             self.current_rotation = R.from_euler('xz', roll_pitch, degrees=True)
