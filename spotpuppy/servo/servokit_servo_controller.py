@@ -15,10 +15,10 @@ class controller(servo_controller_base.controller):
         self.kit.servo[s].angle = clamp(v + 90, 0, 180)
 
     def _set_leg_servo(self, leg, joint, value):
-        self.set_servokit_servo(self.mapping.get(leg, joint))
+        self.set_servokit_servo(self.mapping.get(leg, joint), value)
 
     def _set_aux_servo(self, name, value):
-        self.set_servokit_servo(self.aux_mapping.get(name, -1))
+        self.set_servokit_servo(self.aux_mapping.get(name, -1), value)
 
     def _get_json(self):
         return {"legs": self.mapping.get_dict(), "aux": self.aux_mapping.get_dict()}
