@@ -27,8 +27,10 @@ class aux_servo_map:
     def __init__(self):
         self.mapping = {}
 
-    def get(self, name):
-        return self.mapping[name]
+    def get(self, name, default):
+        if name in self.mapping:
+            return self.mapping[name]
+        return default
 
     def get_dict(self):
         return self.mapping

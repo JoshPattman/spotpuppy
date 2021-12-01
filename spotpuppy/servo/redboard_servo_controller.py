@@ -16,7 +16,7 @@ class controller(servo_controller_base.controller):
         self.set_redboard_servo(self.mapping.get(leg, joint))
 
     def _set_aux_servo(self, name, value):
-        self.set_redboard_servo(self.aux_mapping.get(name))
+        self.set_redboard_servo(self.aux_mapping.get(name, -1))
 
     def _get_json(self):
         return {"legs": self.mapping.get_dict(), "aux": self.aux_mapping.get_dict()}
