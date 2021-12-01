@@ -72,7 +72,7 @@ class quadruped:
         self.quad_controller.update_servos()
         # Update physical servos
         if not self.servo_controller == None:
-            self.servo_controller.set_all_servos(self.quad_controller.servo_rotations)
+            self.servo_controller.set_all_leg_servos(self.quad_controller.servo_rotations)
 
     def get_roll_pitch(self):
         xyz = self.current_rotation.as_euler("xyz", degrees=True)
@@ -116,3 +116,6 @@ class quadruped:
         localRestingPos = np.array([0, dh, 0])
         posses = np.array([localRestingPos, localRestingPos, localRestingPos, localRestingPos])
         return posses
+
+    def set_aux_servo(self, servo_name, value):
+        self.servo_controller.set_aux_servo(servo_name, value)
