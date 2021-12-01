@@ -31,6 +31,7 @@ class quadruped:
         self.fall_rotation_limit = limit
         self.cos_fall_rotation_limit = math.cos(math.radians(limit))
 
+    # TODO: I think this is broken
     def check_is_fallen_over(self):
         if self.fall_rotation_limit == 0:
             return False
@@ -84,7 +85,7 @@ class quadruped:
     # Override this and use quad_controller.set_servo to set a servo. The servos do not update instantly, but after when this function returns
     def _on_update(self):
         # Set all legs to default height
-        posses = self._calculate_still_positions()
+        posses = self.calculate_still_positions()
         for l in range(4):
             self.quad_controller.set_leg(l, posses[l])
 
@@ -110,7 +111,7 @@ class quadruped:
         pass
 
     # Calculate positions of the legs when they are at their default positions
-    def _calculate_still_positions(self):
+    def calculate_still_positions(self):
         dh = self.quad_controller.resting_height
         localRestingPos = np.array([0, dh, 0])
         posses = np.array([localRestingPos, localRestingPos, localRestingPos, localRestingPos])
