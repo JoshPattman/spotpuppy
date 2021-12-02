@@ -16,7 +16,7 @@ def _update_thread(robot, max_update_per_sec, warn_if_low_threshold):
 
 def start_threaded_updates(robot, max_update_per_sec=50, warn_if_low=False):
     # If we ask it to, this will warn the user when updates per second drops below 90% of what it should be
-    wilt = max_update_per_sec * 2
+    wilt = -1
     if warn_if_low:
         wilt = max_update_per_sec - (0.1*max_update_per_sec)
     # Set daemon=True so that the thread quits when our program exits
