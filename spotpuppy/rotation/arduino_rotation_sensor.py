@@ -1,3 +1,9 @@
+"""
+This is a sensor to be used with an arduino:
+- running "github.com/JoshPattman/arduino-mpu6050/"
+- connected to an mpu6050
+"""
+
 from . import rotation_sensor_base
 import serial
 
