@@ -32,11 +32,10 @@ class quadruped:
         self.fall_rotation_limit = limit
         self.cos_fall_rotation_limit = math.cos(math.radians(limit))
 
-    # TODO: I think this is broken
     def check_is_fallen_over(self):
         if self.fall_rotation_limit == 0:
             return False
-        rot = self.current_rotation
+        rot = self.get_roll_pitch()
         if math.cos(math.radians(rot[0]) < self.cos_rotation_limit or math.cos(
                 math.radians(rot[1])) < self.cos_rotation_limit):
             return True
