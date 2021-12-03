@@ -25,6 +25,7 @@ class quadruped:
         self.set_rotation_limit(fall_rotation_limit)
         self.current_rotation = R.from_euler('xz', [0, 0], degrees=True)
         self.cached_directions = {}
+        self.quad_controller.set_all_legs(self.calculate_still_positions())
 
     def set_rotation_limit(self, limit):
         limit = 0 if limit < 0 else limit
