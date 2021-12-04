@@ -119,3 +119,9 @@ class quadruped:
 
     def set_aux_servo(self, servo_name, value):
         self.servo_controller.set_aux_servo(servo_name, value)
+
+    def load_config_folder(self, f_name):
+        js.load_into_robot(self, f_name)
+
+    def save_config_folder(self, f_name):
+        js.save_robot(self, f_name)
