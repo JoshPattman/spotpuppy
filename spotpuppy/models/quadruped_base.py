@@ -36,8 +36,8 @@ class quadruped:
         if self.fall_rotation_limit == 0:
             return False
         rot = self.get_roll_pitch()
-        if math.cos(math.radians(rot[0]) < self.cos_rotation_limit or math.cos(
-                math.radians(rot[1])) < self.cos_rotation_limit):
+        if math.cos(math.radians(rot[0]) < self.cos_fall_rotation_limit or math.cos(
+                math.radians(rot[1])) < self.cos_fall_rotation_limit):
             return True
         return False
 
